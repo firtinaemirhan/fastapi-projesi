@@ -1,0 +1,20 @@
+name: Build and Deploy Code
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    environment:
+      name: testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodlari Cek (Checkout)
+        uses: actions/checkout@v2
+      - name: Python 3.9 Kurulumu
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Pip Guncelleme
+        run: python -m pip install --upgrade pip
+      - name: Kutuphaneleri Kur
+        run: pip install -r requirements.txt
