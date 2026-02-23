@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 from typing import Optional
 from pydantic.types import conint
@@ -59,9 +59,7 @@ class TokenData(BaseModel):
 
 class Vote(BaseModel):
     post_id: int
-    # dir (direction): İşlemin yönü. le=1 parametresi ile bu değerin 1 veya daha küçük (0) olmasını zorunlu kılıyoruz.
-    # 1: Onayla/Beğen, 0: Onayı/Beğeniyi geri çek.
-    dir: conint(le=1) # type: ignore
+    dir: int = Field(le=1)
 
 class PostOut(BaseModel):
     Post: PostResponse
