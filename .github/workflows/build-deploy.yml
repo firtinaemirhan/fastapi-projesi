@@ -62,3 +62,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fastapi-projesi:latest
+
+      - name: Ubuntu Sunucusuna Baglan ve Guncelle (CD)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USERNAME }}
+          password: ${{ secrets.PROD_PASSWORD }}
+          script: |
+            cd /root/fastapi-projesi
+            git pull
+            systemctl restart fastapi
